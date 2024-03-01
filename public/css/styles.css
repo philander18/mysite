@@ -11006,7 +11006,7 @@ header.masthead .masthead-heading {
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
-  height: 100vh;
+  height: 100%;
 }
 #portfolio .portfolio-item {
   max-width: 26rem;

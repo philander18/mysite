@@ -6,6 +6,9 @@ class Paskah extends BaseController
 {
     public function index(): string
     {
-        return view('paskah/pendaftaran');
+        $data = [
+            'judul' => 'Paskah'
+        ];
+        return view('paskah/index', $data);
     }
 }
