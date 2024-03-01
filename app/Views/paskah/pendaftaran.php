@@ -20,9 +20,8 @@
                     </div>
                     <div class="mb-3">
                         <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
-                            <option selected>Pribadi</option>
                             <option value="panitia">Panitia</option>
-                            <option value="pribadi">Pribadi</option>
+                            <option value="pribadi" selected>Pribadi</option>
                         </select>
                     </div>
                     <div class="mb-3">
