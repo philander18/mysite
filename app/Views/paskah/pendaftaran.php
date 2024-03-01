@@ -2,21 +2,28 @@
 <?= $this->section('page-content'); ?>
 <div class="container-fluid" style="height: 100vh;">
     <div class="container">
-        <form>
+        <form autocomplete="off" action="" method="POST">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6" style="height: 100vh;">
                     <div class="text-dark mb-3 fw-bold">
                         <h3 class="fw-bold text-center">PENDAFTARAN PASKAH</h3>
                         <h4 class="text-center">GPdI Padalarang 2024</h4>
                     </div>
+                    <div class="flash">
+                        <?php if (session()->getFlashdata('pesan')) : ?>
+                            <div class="alert alert-success" role="alert" style="padding: 6px 12px; margin-bottom: 8px;">
+                                <?= session()->getFlashdata('pesan'); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                     <div class="mb-3">
                         <input class="form-control" type="text" id="nama" name="nama" placeholder="Nama">
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" id="HP" name="HP" placeholder="Nomor HP">
+                        <input class="form-control" type="text" id="hp" name="hp" placeholder="Nomor HP">
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="anggota" rows="3" placeholder="Daftar anggota"></textarea>
+                        <textarea class="form-control" id="anggota" name="anggota" rows="3" placeholder="Daftar anggota"></textarea>
                     </div>
                     <div class="mb-3">
                         <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
