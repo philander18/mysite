@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class Paskah extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        return view('index');
     }
 }
