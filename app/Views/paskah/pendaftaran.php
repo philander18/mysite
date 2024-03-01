@@ -36,10 +36,10 @@
                     </div>
                     <div class="mb-3">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-5 col-md-3">
                                 <button type="submit" class="btn btn-light text-dark fw-bold" style="width: 100%">Submit</button>
                             </div>
-                            <div class="col-4">
+                            <div class="col-5 col-md-3">
                                 <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>paskah" role="button" style="width: 80%">Home</a>
                             </div>
                         </div>
