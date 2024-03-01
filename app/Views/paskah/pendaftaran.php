@@ -1,62 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="<?= base_url(); ?>public/css/styles.css" rel="stylesheet" />
-    <link href="<?= base_url(); ?>public/css/form.css" rel="stylesheet" />
-</head>
-
-<body>
-    <div class="container-fluid paskah">
-        <div class="form-body">
-            <div class="row">
-                <div class="form-holder">
-                    <div class="form-content">
-                        <div class="form-items">
-                            <h3>PENDAFTARAN PASKAH</h3>
-                            <H3>GPdI Padalarang 2024</H3>
-                            <p>Tolong isi data di bawah ini</p>
-                            <form class="requires-validation" novalidate>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="text" name="name" placeholder="Nama Lengkap" required>
-                                    <div class="valid-feedback">Nama sudah sesuai</div>
-                                    <div class="invalid-feedback">Nama tidak boleh kosong</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="text" name="HP" placeholder="Nomor HP" required>
-                                    <div class="valid-feedback">Nomor HP ok</div>
-                                    <div class="invalid-feedback">Nomor HP tidak boleh kosong</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <select class="form-select mt-3" required>
-                                        <option selected disabled value="">Position</option>
-                                        <option value="jweb">Junior Web Developer</option>
-                                        <option value="sweb">Senior Web Developer</option>
-                                        <option value="pmanager">Project Manager</option>
-                                    </select>
-                                    <div class="valid-feedback">You selected a position!</div>
-                                    <div class="invalid-feedback">Please select a position!</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="password" name="password" placeholder="Password" required>
-                                    <div class="valid-feedback">Password field is valid!</div>
-                                    <div class="invalid-feedback">Password field cannot be blank!</div>
-                                </div>
-                                <div class="form-button mt-3">
-                                    <button id="submit" type="submit" class="btn btn-primary fw-bold" style="color: black;">DAFTAR</button>
-                                </div>
-                            </form>
+<?= $this->extend('paskah/template/index'); ?>
+<?= $this->section('page-content'); ?>
+<div class="container-fluid" style="height: 100vh;">
+    <div class="container">
+        <form>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6 bg-light text-dark bg-opacity-25" style="height: 100vh;">
+                    <div class="text-dark mb-3 fw-bold">
+                        <h3 class="fw-bold text-center">PENDAFTARAN PASKAH</h3>
+                        <h4 class="text-center">GPdI Padalarang 2024</h4>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" id="nama" name="nama" placeholder="Nama">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" id="HP" name="HP" placeholder="Nomor HP">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="anggota" rows="3" placeholder="Daftar anggota"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
+                            <option selected>Pribadi</option>
+                            <option value="panitia">Panitia</option>
+                            <option value="pribadi">Pribadi</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="col">
+                            <input class="form-control" type="text" id="dewasa" name="dewasa" placeholder="Jumlah Dewasa">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="col">
+                            <input class="form-control" type="text" id="anak" name="anak" placeholder="Jumlah Anak">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-light text-dark fw-bold" style="width: 100%">Submit</button>
+                            </div>
+                            <div class="col-4">
+                                <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>paskah" role="button" style="width: 80%">Home</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-    <script src="<?= base_url(); ?>public/js/scripts.js"></script>
-    <script src="<?= base_url(); ?>public/js/form.js"></script>
-</body>
-
-</html>
+</div>
+</form>
+</div>
+<?= $this->endSection(); ?>

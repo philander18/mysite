@@ -8,4 +8,11 @@ class Home extends BaseController
     {
         return view('index');
     }
+    public function test(): string
+    {
+        $data = [
+            'judul' => 'Paskah'
+        ];
+        return view('auth/login', $data);
+    }
 }

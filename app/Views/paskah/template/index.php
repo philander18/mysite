@@ -22,7 +22,7 @@
 
 </head>
 
-<body>
+<body class="paskah">
     <!-- Begin Page Content -->
     <?= $this->renderSection('page-content'); ?>
     <!-- /.container-fluid -->
@@ -35,6 +35,8 @@
     <script src="<?= base_url(); ?>vendor/DataTables/jQuery-1.12.4/jquery-1.12.4.js"></script>
     <script src="<?= base_url(); ?>vendor/DataTables/Responsive-3.0.0/js/dataTables.responsive.js"></script>
     <script src="<?= base_url(); ?>vendor/fontawesome-free-6.5.1-web/js/all.js"></script>
+    <script src="<?= base_url(); ?>public/js/popper.js"></script>
+    <script src="<?= base_url(); ?>public/js/main.js"></script>
 </body>
 
 </html>
