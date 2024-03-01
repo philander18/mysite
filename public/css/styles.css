@@ -10996,6 +10996,18 @@ header.masthead .masthead-heading {
     margin-bottom: 4rem;
   }
 }
+.paskah {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/background_telur.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+}
 #portfolio .portfolio-item {
   max-width: 26rem;
   margin-left: auto;
