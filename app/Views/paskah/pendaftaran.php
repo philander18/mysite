@@ -4,7 +4,7 @@
     <div class="container">
         <form>
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6 bg-light text-dark bg-opacity-25" style="height: 100vh;">
+                <div class="col-12 col-md-8 col-lg-6" style="height: 100vh;">
                     <div class="text-dark mb-3 fw-bold">
                         <h3 class="fw-bold text-center">PENDAFTARAN PASKAH</h3>
                         <h4 class="text-center">GPdI Padalarang 2024</h4>
