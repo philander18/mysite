@@ -46,55 +46,13 @@
                                         <?php if (is_null($row['bayar'])) : ?>
                                             <i class="fas fa-circle-xmark" id="status"></i>
                                         <?php else : ?>
-                                            <?= "Rp " . number_format($row["bayar"], 2, ',', '.'); ?>
+                                            <?= number_format($row["bayar"], 0, ',', '.'); ?>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <?php if ($jemaat) : ?>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <?php if ($pagination['first']) : ?>
-                                    <li class="page-item">
-                                        <a class="page-link text-dark" href="#" aria-label="First" id="first" name="first" data-page="1">
-                                            <span aria-hidden="false">First</span>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
-                                <?php if ($pagination['previous']) : ?>
-                                    <li class="page-item">
-                                        <a class="page-link text-dark" href="#" aria-label="Previous" id="previous" name="previous" data-page="<?= $page - 1; ?>">
-                                            <span aria-hidden=" true">Previous</span>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
-                                <?php foreach ($pagination['number'] as $number) : ?>
-                                    <li class="page-item <?= $pagination['page'] == $number ? 'active' : '' ?>">
-                                        <a class="page-link text-dark" href="#" id="nomor<?= $number; ?>" name="nomor<?= $number; ?>" data-page="<?= $number; ?>">
-                                            <span aria-hidden="true"><?= $number; ?></span>
-                                        </a>
-                                    </li>
-                                <?php endforeach ?>
-                                <?php if ($pagination['next']) : ?>
-                                    <li class="page-item">
-                                        <a class="page-link text-dark" href="#" aria-label="Next" id="next" name="next" data-page="<?= $page + 1; ?>">
-                                            <span aria-hidden=" true">Next</span>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
-                                <?php if ($pagination['last']) : ?>
-                                    <li class="page-item">
-                                        <a class="page-link text-dark" href="#" aria-label="<?= $last; ?>" id="last" name="last" data-page="<?= $last; ?>">
-                                            <span aria-hidden="true"><?= $last; ?></span>
-                                        </a>
-                                    </li>
-                                <?php endif ?>
-                            </ul>
-                        </nav>
-                    <?php endif; ?>
-
                 </div>
             </div>
         </div>

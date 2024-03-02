@@ -12,7 +12,7 @@ class PaskahModel extends Model
     public function searchhp($keyword, $jumlahlist, $index)
     {
         $where = "hp like '%" . $keyword . "%'";
-        $all = $this->db->table('jemaat')->select('hp, dewasa, anak, bayar')->where($where)->get()->getResultArray();
+        $all = $this->db->table('jemaat')->select('hp, dewasa, anak, bayar')->where($where)->orderBy('bayar', 'ASC')->get()->getResultArray();
         $jumlahdata = count($all);
         $lastpage = ceil($jumlahdata / $jumlahlist);
         $tabel = array_splice($all, $index);
@@ -24,7 +24,7 @@ class PaskahModel extends Model
     public function searchpanitia($keyword, $jumlahlist, $index)
     {
         $where = "hp like '%" . $keyword . "%' or nama like '%" . $keyword . "%'";
-        $all = $this->db->table('jemaat')->select('id, nama, hp, bayar')->where($where)->get()->getResultArray();
+        $all = $this->db->table('jemaat')->select('id, nama, hp, bayar')->where($where)->orderBy('nama', 'ASC')->get()->getResultArray();
         $jumlahdata = count($all);
         $lastpage = ceil($jumlahdata / $jumlahlist);
         $tabel = array_splice($all, $index);
@@ -42,5 +42,9 @@ class PaskahModel extends Model
     function updatejemaat($data, $id)
     {
         return $this->db->table('jemaat')->where('id', $id)->update($data);
+    }
+    public function statusSummary($pic)
+    {
+        return $this->db->table('jemaat')->select('pic, sum(bayar) as total')->where('pic', $pic)->groupBy('pic')->orderBy('total', 'desc')->get()->getResultArray();
     }
 }

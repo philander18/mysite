@@ -1,4 +1,11 @@
 <input type="hidden" name="baseurl" id="baseurl" value="<?= base_url(); ?>">
+<div class="flash">
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="alert alert-success" role="alert" style="padding: 6px 12px; margin-bottom: 8px;">
+            <?= session()->getFlashdata('pesan'); ?>
+        </div>
+    <?php endif; ?>
+</div>
 <table id="tabelDataPendaftaran" class="table table-striped" style="width:100%">
     <thead>
         <tr class="table-dark">
@@ -22,51 +29,39 @@
                     <?php if (is_null($row['bayar'])) : ?>
                         <i class="fas fa-circle-xmark" id="status"></i>
                     <?php else : ?>
-                        <?= "Rp " . number_format($row["bayar"], 2, ',', '.'); ?>
+                        <?= number_format($row["bayar"], 0, ',', '.'); ?>
                     <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
-<?php if ($jemaat) : ?>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <?php if ($pagination['first']) : ?>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="First" id="first" name="first" data-page="1">
-                        <span aria-hidden="false">First</span>
-                    </a>
-                </li>
-            <?php endif ?>
-            <?php if ($pagination['previous']) : ?>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="Previous" id="previous" name="previous" data-page="<?= $page - 1; ?>">
-                        <span aria-hidden=" true">Previous</span>
-                    </a>
-                </li>
-            <?php endif ?>
-            <?php foreach ($pagination['number'] as $number) : ?>
-                <li class="page-item <?= $pagination['page'] == $number ? 'active' : '' ?>">
-                    <a class="page-link text-dark" href="#" id="nomor<?= $number; ?>" name="nomor<?= $number; ?>" data-page="<?= $number; ?>">
-                        <span aria-hidden="true"><?= $number; ?></span>
-                    </a>
-                </li>
-            <?php endforeach ?>
-            <?php if ($pagination['next']) : ?>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="Next" id="next" name="next" data-page="<?= $page + 1; ?>">
-                        <span aria-hidden=" true">Next</span>
-                    </a>
-                </li>
-            <?php endif ?>
-            <?php if ($pagination['last']) : ?>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#" aria-label="<?= $last; ?>" id="last" name="last" data-page="<?= $last; ?>">
-                        <span aria-hidden="true"><?= $last; ?></span>
-                    </a>
-                </li>
-            <?php endif ?>
-        </ul>
-    </nav>
-<?php endif; ?>
+<script>
+    $(document).ready(function() {
+        $('.modalpanitia').on('click', function() {
+            const id = $(this).data('id'),
+                baseurl = $('#baseurl').val();
+            clear_form_panitia();
+            $('#modalnama').prop('disabled', true);
+            $('#hp').prop('disabled', true);
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'getdata'),
+                data: {
+                    id: id,
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $('#modalnama').val(data.nama);
+                    $('#hp').val(data.hp);
+                    $('#anggota').val(data.anggota);
+                    $('#transportasi').val(data.transportasi);
+                    $('#dewasa').val(data.dewasa);
+                    $('#anak').val(data.anak);
+                    $('#bayar').val(data.bayar);
+                    $('#id').val(data.id);
+                }
+            });
+        });
+    });
+</script>

@@ -17,28 +17,55 @@
                         <?php endif; ?>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" id="nama" name="nama" placeholder="Nama">
+                        <input class="form-control" type="text" id="nama" name="nama" placeholder="Nama" required>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="text" id="hp" name="hp" placeholder="Nomor HP">
+                        <input class="form-control" type="text" id="hp" name="hp" placeholder="Nomor HP" required>
                     </div>
                     <div class="mb-3">
                         <textarea class="form-control" id="anggota" name="anggota" rows="3" placeholder="Daftar anggota"></textarea>
                     </div>
                     <div class="mb-3">
-                        <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
-                            <option value="panitia">Panitia</option>
-                            <option value="pribadi" selected>Pribadi</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="col">
-                            <input class="form-control" type="text" id="dewasa" name="dewasa" placeholder="Jumlah Dewasa">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <label class="text-dark fw-bold" for="transportasi">Transportasi</label>
+                            </div>
+                            <div class="col-6 col-md-8">
+                                <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
+                                    <option value="panitia">Panitia</option>
+                                    <option value="pribadi" selected>Pribadi</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <div class="col">
-                            <input class="form-control" type="text" id="anak" name="anak" placeholder="Jumlah Anak">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <label class="text-dark fw-bold" for="dewasa">Jumlah Dewasa</label>
+                            </div>
+                            <div class="col-6 col-md-8">
+                                <select class="form-select" aria-label=".form-select-sm example" name="dewasa" id="dewasa">
+                                    <option value="0" selected>0</option>
+                                    <?php for ($x = 1; $x <= 10; $x++) { ?>
+                                        <option value="<?= $x; ?>"><?= $x; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <label class="text-dark fw-bold" for="anak">Jumlah Anak</label>
+                            </div>
+                            <div class="col-6 col-md-8">
+                                <select class="form-select" aria-label=".form-select-sm example" name="anak" id="anak">
+                                    <option value="0" selected>0</option>
+                                    <?php for ($x = 1; $x <= 10; $x++) { ?>
+                                        <option value="<?= $x; ?>"><?= $x; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">

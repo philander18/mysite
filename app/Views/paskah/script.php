@@ -77,22 +77,28 @@
         });
 
         $('.updatedata').on('click', function() {
-            var id = $('#keyword').val(),
+            var id = $('#id').val(),
+                nama = $('#modalnama').val(),
                 anggota = $('#anggota').val(),
                 transportasi = $('#transportasi').val(),
                 dewasa = $('#dewasa').val(),
                 anak = $('#anak').val(),
                 bayar = $('#bayar').val(),
+                keyword = $('#keywordpanitia').val(),
+                page = 1,
                 baseurl = $('#baseurl').val();
             $.ajax({
                 url: method_url(baseurl, 'Paskah', 'updatedata'),
                 data: {
                     id: id,
+                    nama: nama,
                     anggota: anggota,
                     transportasi: transportasi,
                     dewasa: dewasa,
                     anak: anak,
                     bayar: bayar,
+                    keyword: keyword,
+                    page: page,
                 },
                 method: 'post',
                 dataType: 'html',
