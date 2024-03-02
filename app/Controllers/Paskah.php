@@ -111,6 +111,12 @@ class Paskah extends BaseController
 
     public function searchDataPanitia()
     {
+        if (empty($this->PaskahModel->statusSummary(user()->username))) {
+            $summary['pic'] = false;
+            $summary['total'] = false;
+        } else {
+            $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+        }
         $page = $_POST['page'];
         $keyword = $_POST['keyword'];
         if ($page == 1) {
@@ -126,6 +132,7 @@ class Paskah extends BaseController
             'pagination' => $pagination,
             'last' => $last,
             'page' => $page,
+            'summary' => $summary,
         ];
         echo view('paskah/tabel/panitia', $data);
     }
