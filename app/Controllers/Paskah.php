@@ -8,6 +8,7 @@ use DateTime;
 class Paskah extends BaseController
 {
     protected $PaskahModel;
+    protected $jumlahlist = 8;
     public function __construct()
     {
         $this->PaskahModel = new PaskahModel();
@@ -61,5 +62,77 @@ class Paskah extends BaseController
             'judul' => 'Paskah'
         ];
         return view('paskah/pendaftaran', $data);
+    }
+
+    public function cekData()
+    {
+        $page = 1;
+        $data = [
+            'judul' => 'Pendaftaran',
+            'jemaat' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['lastpage']),
+            'last' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['lastpage'],
+            'page' => $page,
+        ];
+        return view('paskah/cekumum', $data);
+    }
+    public function searchData()
+    {
+        $page = $_POST['page'];
+        $keyword = $_POST['keyword'];
+        if ($page == 1) {
+            $index = 0;
+        } else {
+            $index = ($page - 1) * $this->jumlahlist;
+        }
+        $jemaat = $this->PaskahModel->searchhp($keyword, $this->jumlahlist, $index)['tabel'];
+        $last = $this->PaskahModel->searchhp($keyword, $this->jumlahlist, $index)['lastpage'];
+        $pagination = $this->pagination($page, $last);
+        $data = [
+            'jemaat' => $jemaat,
+            'pagination' => $pagination,
+            'last' => $last,
+            'page' => $page,
+        ];
+        echo view('paskah/tabel/cekData', $data);
+    }
+
+    public function pagination($page, $lastpage)
+    {
+        $pagination = [
+            'first' => false,
+            'previous' => false,
+            'next' => false,
+            'last' => false
+        ];
+        if ($lastpage == 1) {
+            $pagination['number'] = [1];
+        } elseif ($lastpage == 2) {
+            $pagination['number'] = [1, 2];
+        } elseif ($lastpage == 3) {
+            $pagination['number'] = [1, 2, 3];
+        } elseif ($lastpage == 4) {
+            $pagination['number'] = [1, 2, 3, 4];
+        } elseif ($lastpage == 5) {
+            $pagination['number'] = [1, 2, 3, 4, 5];
+        } else {
+            if ($page >= 1 and $page <= 3) {
+                $pagination['next'] = true;
+                $pagination['last'] = true;
+                $pagination['number'] = [1, 2, 3];
+            } elseif ($page >= $lastpage - 2 and $page <= $lastpage) {
+                $pagination['first'] = true;
+                $pagination['previous'] = true;
+                $pagination['number'] = [$lastpage - 2, $lastpage - 1, $lastpage];
+            } else {
+                $pagination['first'] = true;
+                $pagination['previous'] = true;
+                $pagination['next'] = true;
+                $pagination['last'] = true;
+                $pagination['number'] = [$page - 1, $page, $page + 1];
+            }
+        };
+        $pagination['page'] = $page;
+        return $pagination;
     }
 }

@@ -29,14 +29,14 @@
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url(); ?>vendor/DataTables/Bootstrap-5-5.3.0/jsbootstrap.bundle.js"></script>
-    <script src="<?= base_url(); ?>vendor/DataTables/Buttons-3.0.0/js/buttons.bootstrap.js"></script>
-    <script src="<?= base_url(); ?>vendor/DataTables/DataTables-2.0.1/js/dataTables.bootstrap.js"></script>
+    <script src="<?= base_url(); ?>vendor/DataTables/Bootstrap-5-5.3.0/js/bootstrap.bundle.js"></script>
     <script src="<?= base_url(); ?>vendor/DataTables/jQuery-1.12.4/jquery-1.12.4.js"></script>
-    <script src="<?= base_url(); ?>vendor/DataTables/Responsive-3.0.0/js/dataTables.responsive.js"></script>
     <script src="<?= base_url(); ?>vendor/fontawesome-free-6.5.1-web/js/all.js"></script>
     <script src="<?= base_url(); ?>public/js/popper.js"></script>
     <script src="<?= base_url(); ?>public/js/main.js"></script>
+
+    <!-- Menangani cekData -->
+    <?= $this->include('paskah/script'); ?>
 </body>
 
 </html>
