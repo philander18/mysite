@@ -58,7 +58,12 @@ class Paskah extends BaseController
     }
     public function panitia(): string
     {
-        // d($this->PaskahModel->statusSummary(user()->username));
+        if (empty($this->PaskahModel->statusSummary(user()->username))) {
+            $summary['pic'] = false;
+            $summary['total'] = false;
+        } else {
+            $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+        }
         $page = 1;
         $data = [
             'judul' => 'Panitia',
@@ -66,7 +71,7 @@ class Paskah extends BaseController
             'pagination' => $this->pagination($page, $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage']),
             'last' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage'],
             'page' => $page,
-            'summary' => $this->PaskahModel->statusSummary(user()->username)[0],
+            'summary' => $summary,
         ];
         return view('paskah/panitia', $data);
     }

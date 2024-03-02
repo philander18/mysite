@@ -28,7 +28,7 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-md-4">
-                                <label class="text-dark fw-bold" for="transportasi">Transportasi</label>
+                                <label class="text-dark fw-bold" for="transportasi" style="text-shadow: 2px 2px white;">Transportasi</label>
                             </div>
                             <div class="col-6 col-md-8">
                                 <select class="form-select" aria-label=".form-select-sm example" name="transportasi" id="transportasi">
@@ -41,7 +41,7 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-md-4">
-                                <label class="text-dark fw-bold" for="dewasa">Jumlah Dewasa</label>
+                                <label class="text-dark fw-bold" for="dewasa" style="text-shadow: 2px 2px white;">Jumlah Dewasa</label>
                             </div>
                             <div class="col-6 col-md-8">
                                 <select class="form-select" aria-label=".form-select-sm example" name="dewasa" id="dewasa">
@@ -56,7 +56,7 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-md-4">
-                                <label class="text-dark fw-bold" for="anak">Jumlah Anak</label>
+                                <label class="text-dark fw-bold" for="anak" style="text-shadow: 2px 2px white;">Jumlah Anak</label>
                             </div>
                             <div class="col-6 col-md-8">
                                 <select class="form-select" aria-label=".form-select-sm example" name="anak" id="anak">

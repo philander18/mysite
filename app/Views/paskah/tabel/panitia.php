@@ -36,6 +36,9 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php if ($summary["pic"] != false) : ?>
+    <h3 class="text-black fw-bold"><?= $summary["pic"] . " : Rp " . number_format($summary["total"], 2, ',', '.') ?></h3>
+<?php endif; ?>
 <script>
     $(document).ready(function() {
         $('.modalpanitia').on('click', function() {
