@@ -8,7 +8,7 @@ use DateTime;
 class Paskah extends BaseController
 {
     protected $PaskahModel;
-    protected $jumlahlist = 8;
+    protected $jumlahlist = 10;
     public function __construct()
     {
         $this->PaskahModel = new PaskahModel();
@@ -58,10 +58,15 @@ class Paskah extends BaseController
     }
     public function panitia(): string
     {
+        $page = 1;
         $data = [
-            'judul' => 'Paskah'
+            'judul' => 'Panitia',
+            'jemaat' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage']),
+            'last' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage'],
+            'page' => $page,
         ];
-        return view('paskah/pendaftaran', $data);
+        return view('paskah/panitia', $data);
     }
 
     public function cekData()
@@ -69,9 +74,9 @@ class Paskah extends BaseController
         $page = 1;
         $data = [
             'judul' => 'Pendaftaran',
-            'jemaat' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['tabel'],
-            'pagination' => $this->pagination($page, $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['lastpage']),
-            'last' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0, false)['lastpage'],
+            'jemaat' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['lastpage']),
+            'last' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['lastpage'],
             'page' => $page,
         ];
         return view('paskah/cekumum', $data);
@@ -95,6 +100,27 @@ class Paskah extends BaseController
             'page' => $page,
         ];
         echo view('paskah/tabel/cekData', $data);
+    }
+
+    public function searchDataPanitia()
+    {
+        $page = $_POST['page'];
+        $keyword = $_POST['keyword'];
+        if ($page == 1) {
+            $index = 0;
+        } else {
+            $index = ($page - 1) * $this->jumlahlist;
+        }
+        $jemaat = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['tabel'];
+        $last = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['lastpage'];
+        $pagination = $this->pagination($page, $last);
+        $data = [
+            'jemaat' => $jemaat,
+            'pagination' => $pagination,
+            'last' => $last,
+            'page' => $page,
+        ];
+        echo view('paskah/tabel/panitia', $data);
     }
 
     public function pagination($page, $lastpage)
@@ -134,5 +160,27 @@ class Paskah extends BaseController
         };
         $pagination['page'] = $page;
         return $pagination;
+    }
+    public function getdata()
+    {
+        echo json_encode($this->PaskahModel->getDatabyid($_POST['id'])[0]);
+    }
+
+    public function updatedata()
+    {
+        $date = new DateTime();
+        $date = $date->format('Y-m-d H:i:s');
+        $id = $_POST['id'];
+        $dataupdate = [
+            'anggota' => $_POST['anggota'],
+            'transportasi' => $_POST['transportasi'],
+            'dewasa' => $_POST['dewasa'],
+            'anak' => $_POST['anak'],
+            'bayar' => $_POST['bayar'],
+            'pic' => user()->username,
+            'updated_at' => $date
+        ];
+        $this->PaskahModel->updatejemaat($dataupdate, $id);
+        $this->panitia();
     }
 }

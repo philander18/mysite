@@ -1,9 +1,11 @@
 <script>
     function clear_form_panitia() {
-        $('#kode').val('');
-        $('#user').val('');
-        $('#lokasi').val('');
-        $('#keterangan').val('');
+        $('#modalnama').val('');
+        $('#hp').val('');
+        $('#anggota').val('');
+        $('#dewasa').val('');
+        $('#anak').val('');
+        $('#bayar').val('');
     }
 
     function method_url(baseurl, controler, method) {
@@ -16,7 +18,6 @@
             var keyword = $(this).val(),
                 baseurl = $('#baseurl').val(),
                 page = 1;
-            console.log(baseurl);
             $.ajax({
                 url: method_url(baseurl, 'paskah', 'searchData'),
                 data: {
@@ -26,7 +27,76 @@
                 method: 'post',
                 dataType: 'html',
                 success: function(data) {
-                    console.log('ok');
+                    $('.tabelDataPendaftaran').html(data);
+                }
+            });
+        });
+
+        $('#keywordpanitia').on('keyup', function() {
+            var keyword = $(this).val(),
+                baseurl = $('#baseurl').val(),
+                page = 1;
+            $.ajax({
+                url: method_url(baseurl, 'paskah', 'searchDataPanitia'),
+                data: {
+                    keyword: keyword,
+                    page: page,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
+                    $('.tabelDataPendaftaran').html(data);
+                }
+            });
+        });
+
+        $('.modalpanitia').on('click', function() {
+            const id = $(this).data('id'),
+                baseurl = $('#baseurl').val();
+            clear_form_panitia();
+            $('#modalnama').prop('disabled', true);
+            $('#hp').prop('disabled', true);
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'getdata'),
+                data: {
+                    id: id,
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $('#modalnama').val(data.nama);
+                    $('#hp').val(data.hp);
+                    $('#anggota').val(data.anggota);
+                    $('#transportasi').val(data.transportasi);
+                    $('#dewasa').val(data.dewasa);
+                    $('#anak').val(data.anak);
+                    $('#bayar').val(data.bayar);
+                    $('#id').val(data.id);
+                }
+            });
+        });
+
+        $('.updatedata').on('click', function() {
+            var id = $('#keyword').val(),
+                anggota = $('#anggota').val(),
+                transportasi = $('#transportasi').val(),
+                dewasa = $('#dewasa').val(),
+                anak = $('#anak').val(),
+                bayar = $('#bayar').val(),
+                baseurl = $('#baseurl').val();
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'updatedata'),
+                data: {
+                    id: id,
+                    anggota: anggota,
+                    transportasi: transportasi,
+                    dewasa: dewasa,
+                    anak: anak,
+                    bayar: bayar,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
                     $('.tabelDataPendaftaran').html(data);
                 }
             });
@@ -83,28 +153,7 @@
             });
         });
 
-        $('.submitdata').on('click', function() {
-            var id = $(this).data('id'),
-                keyword = $('#keyword').val(),
-                page = $(".active .page-link").data('page'),
-                status = $("[name=" + $(this).data('equipment') + "]:checked").val(),
-                belum = $("input:checkbox").is(":checked");
-            $.ajax({
-                url: method_url('DataEquipment', 'insert'),
-                data: {
-                    id: id,
-                    keyword: keyword,
-                    page: page,
-                    status: status,
-                    belum: belum,
-                },
-                method: 'post',
-                dataType: 'html',
-                success: function(data) {
-                    $('.tabelDataEquipment').html(data);
-                }
-            });
-        });
+
         $('.hapusdata').on('click', function() {
             var key = $(this).data('key'),
                 page = $(".active .page-link").data('page'),
@@ -125,29 +174,7 @@
                 }
             });
         });
-        $('.editdata').on('click', function() {
-            const id = $(this).data('id');
-            clear_form_equipment();
-            $('#kode').prop('disabled', true);
-            $('.baris_company').prop('hidden', true);
-            $('#modalstatus').val($("[name=" + $(this).data('equipment') + "]:checked").val());
-            $('#updatedataequipment').html('Update Data');
-            $.ajax({
-                url: method_url('DataEquipment', 'getequipment'),
-                data: {
-                    id: id,
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function(data) {
-                    $('#kode').val(data.equipment_id);
-                    $('#user').val(data.oem);
-                    $('#lokasi').val(data.location);
-                    $('#id').val(data.id);
-                    $('#keterangan').val('');
-                }
-            });
-        });
+
 
         $('.edittambahdata').on('click', function() {
             const key = $(this).data('key');
