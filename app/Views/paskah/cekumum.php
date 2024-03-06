@@ -24,23 +24,17 @@
                     <table id="tabelDataPendaftaran" class="table table-striped" style="width:100%">
                         <thead>
                             <tr class="table-dark">
-                                <th class="text-center">No HP</th>
-                                <th class="text-center">D</th>
-                                <th class="text-center">A</th>
+                                <th class="text-center">Nama</th>
                                 <th class="text-center">Bayar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($jemaat as $row) : ?>
                                 <tr>
-                                    <td class="align-middle m-1 p-1 text-dark" style="width: 50%;">
-                                        <?= $row["hp"] ?>
-                                    </td>
-                                    <td class="text-center align-middle m-1 p-1 text-dark" style="width: 10%;">
-                                        <?= $row["dewasa"]; ?>
-                                    </td>
-                                    <td class="text-center align-middle m-1 p-1 text-dark" style="width: 10%;">
-                                        <?= $row["anak"]; ?>
+                                    <td class="text-center align-middle m-1 p-1 text-dark" style="width: 70%;">
+                                        <a href="" class="link-primary modalpanitia" data-bs-toggle="modal" data-bs-target="#formpanitia" data-id="<?= $row["id"]; ?>" name="nama" id="nama">
+                                            <?= $row["nama"]; ?>
+                                        </a>
                                     </td>
                                     <td class="text-center align-middle m-1 p-1" style="width: 30%;">
                                         <?php if (is_null($row['bayar'])) : ?>
@@ -54,6 +48,109 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="formpanitia" tabindex="-1" aria-labelledby="judulpanitia" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-primary" id="judulpanitia">Detail Pendaftar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding-top:2px;">
+                <input type="hidden" name="id" id="id" value="">
+                <div class="form-group">
+                    <label class="text-dark fw-bold ms-2 mb-2" id="pic" name="pic">Belum dibayar</label>
+                </div>
+                <table class="table table-borderless" style="margin-bottom: 0px;">
+                    <tr>
+                        <div class="form-group">
+                            <td style="width: 30%;">
+                                <label for="modalnama" class="fw-bold">Nama</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <input class="form-control form-control-sm" type="text" id="modalnama" name="modalnama" disabled>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td style="width: 30%;">
+                                <label for="hp" class="fw-bold">No HP</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <input class="form-control form-control-sm" type="text" id="hp" name="hp" disabled>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <td style="width: 30%;">
+                                <label for="anggota" class="fw-bold">Anggota</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <textarea class="form-control" id="anggota" name="anggota" rows="3" placeholder="Daftar anggota" disabled></textarea>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <td style="width: 30%;">
+                                <label for="transportasi" class="fw-bold">Transportasi</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <select class="form-select" aria-label=".form-select-sm" name="transportasi" id="transportasi" disabled>
+                                    <option value="panitia">Panitia</option>
+                                    <option value="pribadi">Pribadi</option>
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <td style="width: 30%;">
+                                <label for="dewasa" class="fw-bold">Dewasa</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <select class="form-select" aria-label=".form-select-sm example" name="dewasa" id="dewasa" disabled>
+                                    <?php for ($x = 0; $x <= 10; $x++) { ?>
+                                        <option value="<?= $x; ?>"><?= $x; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <td style="width: 30%;">
+                                <label for="anak" class="fw-bold">Anak</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <select class="form-select" aria-label=".form-select-sm example" name="anak" id="anak" disabled>
+                                    <?php for ($x = 0; $x <= 10; $x++) { ?>
+                                        <option value="<?= $x; ?>"><?= $x; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <td style="width: 30%;">
+                                <label for="bayar" class="fw-bold">Bayar</label>
+                            </td>
+                            <td style="width: 70%;">
+                                <input class="form-control form-control-sm" type="text" id="bayar" name="bayar" disabled>
+                            </td>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="updatepanitia" class="btn btn-primary updatedata" data-bs-dismiss="modal" hidden>Update</button>
             </div>
         </div>
     </div>

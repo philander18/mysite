@@ -27,6 +27,7 @@
                 method: 'post',
                 dataType: 'html',
                 success: function(data) {
+                    console.log('ok');
                     $('.tabelDataPendaftaran').html(data);
                 }
             });
@@ -50,12 +51,35 @@
             });
         });
 
+        $('#keywordsetoran').on('keyup', function() {
+            var keyword = $(this).val(),
+                baseurl = $('#baseurl').val(),
+                page = 1;
+            $.ajax({
+                url: method_url(baseurl, 'paskah', 'searchDataSetoran'),
+                data: {
+                    keyword: keyword,
+                    page: page,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
+                    $('.tabelDataSetoran').html(data);
+                }
+            });
+        });
+
         $('.modalpanitia').on('click', function() {
             const id = $(this).data('id'),
                 baseurl = $('#baseurl').val();
             clear_form_panitia();
             $('#modalnama').prop('disabled', true);
             $('#hp').prop('disabled', true);
+            if ($('#siapa').val() == 1 && $(this).data('pic') == 1) {
+                $('#updatepanitia').prop('hidden', false);
+            } else {
+                $('#updatepanitia').prop('hidden', true);
+            }
             $.ajax({
                 url: method_url(baseurl, 'Paskah', 'getdata'),
                 data: {
@@ -72,8 +96,17 @@
                     $('#anak').val(data.anak);
                     $('#bayar').val(data.bayar);
                     $('#id').val(data.id);
+                    if (data.pic === null) {
+                        $('#pic').html('Belum Dibayar');
+                    } else {
+                        $('#pic').html('Penerima : ' + data.pic);
+                    }
                 }
             });
+        });
+
+        $('.diterima').on('click', function() {
+            $('#id').val($(this).data('id'))
         });
 
         $('.updatedata').on('click', function() {
@@ -104,6 +137,38 @@
                 dataType: 'html',
                 success: function(data) {
                     $('.tabelDataPendaftaran').html(data);
+                }
+            });
+        });
+
+        $('.setor').on('click', function() {
+            var jumlah = $('#jumlahSetor').val(),
+                baseurl = $('#baseurl').val();
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'setor'),
+                data: {
+                    jumlah: jumlah,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
+                    $('.tabelDataPendaftaran').html(data);
+                }
+            });
+        });
+
+        $('.terima').on('click', function() {
+            var id = $('#id').val(),
+                baseurl = $('#baseurl').val();
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'updatesetor'),
+                data: {
+                    id: id,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
+                    $('.tabelDataSetoran').html(data);
                 }
             });
         });

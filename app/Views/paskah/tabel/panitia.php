@@ -10,20 +10,16 @@
     <thead>
         <tr class="table-dark">
             <th class="text-center">Nama</th>
-            <th class="text-center">No HP</th>
             <th class="text-center">Bayar</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($jemaat as $row) : ?>
             <tr>
-                <td class="text-center align-middle m-1 p-1 text-dark" style="width: 35%;">
-                    <a href="" class="link-primary modalpanitia" data-bs-toggle="modal" data-bs-target="#formpanitia" data-id="<?= $row["id"]; ?>" name="nama" id="nama">
+                <td class="text-center align-middle m-1 p-1 text-dark" style="width: 70%;">
+                    <a href="" class="link-primary modalpanitia" data-bs-toggle="modal" data-bs-target="#formpanitia" data-id="<?= $row["id"]; ?>" data-pic="<?= ($row["pic"] == user()->username) or is_null($row["pic"]); ?>" name="nama" id="nama">
                         <?= $row["nama"]; ?>
                     </a>
-                </td>
-                <td class="text-center align-middle m-1 p-1 text-dark" style="width: 35%;">
-                    <?= $row["hp"] ?>
                 </td>
                 <td class="text-center align-middle m-1 p-1" style="width: 30%;">
                     <?php if (is_null($row['bayar'])) : ?>
@@ -37,7 +33,7 @@
     </tbody>
 </table>
 <?php if ($summary["pic"] != false) : ?>
-    <h3 class="text-black fw-bold"><?= $summary["pic"] . " : Rp " . number_format($summary["total"], 2, ',', '.') ?></h3>
+    <h3 class="text-black fw-bold" style="text-shadow: 2px 2px white;"><?= $summary["pic"] . " : Rp " . number_format($summary["total"], 2, ',', '.') ?></h3>
 <?php endif; ?>
 <script>
     $(document).ready(function() {
@@ -47,6 +43,11 @@
             clear_form_panitia();
             $('#modalnama').prop('disabled', true);
             $('#hp').prop('disabled', true);
+            if ($('#siapa').val() == 1 && $(this).data('pic') == 1) {
+                $('#updatepanitia').prop('hidden', false);
+            } else {
+                $('#updatepanitia').prop('hidden', true);
+            }
             $.ajax({
                 url: method_url(baseurl, 'Paskah', 'getdata'),
                 data: {
@@ -63,6 +64,12 @@
                     $('#anak').val(data.anak);
                     $('#bayar').val(data.bayar);
                     $('#id').val(data.id);
+                    if (data.pic === null) {
+                        $('#pic').html('Belum Dibayar');
+                    } else {
+                        $('#pic').html('Penerima : ' + data.pic);
+                    }
+
                 }
             });
         });

@@ -7,8 +7,12 @@
                 <a class="btn btn-danger fw-bold fs-2 mt-5 mb-4" href="<?= base_url(); ?>paskah/pendaftaran" role="button" style="width: 80%; height: 4rem; ">Pendaftaran</a>
                 <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/cekData" role="button" style="width: 80%; height: 4rem; ">Cek Data</a>
                 <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/panitia" role="button" style="width: 80%; height: 4rem; ">Panitia</a>
+                <?php if (in_groups('bendahara') or in_groups('pendaftaran')) : ?>
+                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/cekSetoran" role="button" style="width: 80%; height: 4rem; ">Cek Setoran</a>
+                <?php endif; ?>
                 <?php if (logged_in()) : ?>
-                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url('logout'); ?>" role="button" style="width: 80%; height: 4rem; ">Logout</a>
+                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url('ubah'); ?>" role="button" style="width: 80%; height: 4rem; ">Ubah Password</a>
+                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url('logout'); ?>" role="button" style="width: 80%; height: 4rem; ">Keluar</a>
                 <?php endif; ?>
             </div>
         </div>

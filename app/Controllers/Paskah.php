@@ -63,6 +63,9 @@ class Paskah extends BaseController
             $summary['total'] = false;
         } else {
             $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+            if ($this->PaskahModel->setorPIC(user()->username)) {
+                $summary['total'] = $summary['total'] - $this->PaskahModel->setorPIC(user()->username)[0]['total'];
+            }
         }
         $page = 1;
         $data = [
@@ -88,6 +91,24 @@ class Paskah extends BaseController
         ];
         return view('paskah/cekumum', $data);
     }
+
+    public function cekSetoran()
+    {
+        $rekap = $this->PaskahModel->rekapBayar();
+        $bendahara = ['pic' => 'bendahara', 'total' => $this->PaskahModel->totalbendahara()];
+        array_push($rekap, $bendahara);
+        $page = 1;
+        $data = [
+            'judul' => 'Setoran',
+            'setoran' => $this->PaskahModel->searchSetoran("", $this->jumlahlist, 0, 1)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchSetoran("", $this->jumlahlist, 0, 1)['lastpage']),
+            'last' => $this->PaskahModel->searchSetoran("", $this->jumlahlist, 0, 1)['lastpage'],
+            'page' => $page,
+            'rekap' => $rekap,
+        ];
+        return view('paskah/ceksetoran', $data);
+    }
+
     public function searchData()
     {
         $page = $_POST['page'];
@@ -116,6 +137,9 @@ class Paskah extends BaseController
             $summary['total'] = false;
         } else {
             $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+            if ($this->PaskahModel->setorPIC(user()->username)) {
+                $summary['total'] = $summary['total'] - $this->PaskahModel->setorPIC(user()->username)[0]['total'];
+            }
         }
         $page = $_POST['page'];
         $keyword = $_POST['keyword'];
@@ -135,6 +159,23 @@ class Paskah extends BaseController
             'summary' => $summary,
         ];
         echo view('paskah/tabel/panitia', $data);
+    }
+
+    public function searchDataSetoran()
+    {
+        $rekap = $this->PaskahModel->rekapBayar();
+        $bendahara = ['pic' => 'bendahara', 'total' => $this->PaskahModel->totalbendahara()];
+        array_push($rekap, $bendahara);
+        $page = $_POST['page'];
+        $keyword = $_POST['keyword'];
+        $data = [
+            'setoran' => $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['lastpage']),
+            'last' => $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['lastpage'],
+            'page' => $page,
+            'rekap' => $rekap,
+        ];
+        return view('paskah/tabel/ceksetoran', $data);
     }
 
     public function pagination($page, $lastpage)
@@ -205,6 +246,9 @@ class Paskah extends BaseController
             $summary['total'] = false;
         } else {
             $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+            if ($this->PaskahModel->setorPIC(user()->username)) {
+                $summary['total'] = $summary['total'] - $this->PaskahModel->setorPIC(user()->username)[0]['total'];
+            }
         }
         $page = $_POST['page'];
         $keyword = $_POST['keyword'];
@@ -224,5 +268,109 @@ class Paskah extends BaseController
             'summary' => $summary
         ];
         echo view('paskah/tabel/panitia', $data);
+    }
+
+    public function updatesetor()
+    {
+        $date = new DateTime();
+        $date = $date->format('Y-m-d H:i:s');
+        $id = $_POST['id'];
+        $dataupdate = [
+            'status' => 1,
+            'updated_at' => $date
+        ];
+        if ($this->PaskahModel->updatesetor($dataupdate, $id)) {
+            session()->setFlashdata('pesan', 'Uang sudah diterima');
+        } else {
+            session()->setFlashdata('pesan', 'Uang gagal diterima');
+        }
+        $rekap = $this->PaskahModel->rekapBayar();
+        $bendahara = ['pic' => 'bendahara', 'total' => $this->PaskahModel->totalbendahara()];
+        array_push($rekap, $bendahara);
+        $page = 1;
+        $keyword = "";
+        $data = [
+            'setoran' => $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['tabel'],
+            'pagination' => $this->pagination($page, $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['lastpage']),
+            'last' => $this->PaskahModel->searchSetoran($keyword, $this->jumlahlist, 0, 1)['lastpage'],
+            'page' => $page,
+            'rekap' => $rekap,
+        ];
+        return view('paskah/tabel/ceksetoran', $data);
+    }
+
+    public function setor()
+    {
+        $date = new DateTime();
+        $date = $date->format('Y-m-d H:i:s');
+        $data = [
+            'pic' => user()->username,
+            'jumlah' => $_POST['jumlah'],
+            'status' => false,
+            'updated_at' => $date
+        ];
+        if ($this->PaskahModel->insertBendahara($data)) {
+            session()->setFlashdata('pesan', 'setoran Berhasil.');
+        } else {
+            session()->setFlashdata('pesan', 'setoran Gagal.');
+        }
+        if (empty($this->PaskahModel->statusSummary(user()->username))) {
+            $summary['pic'] = false;
+            $summary['total'] = false;
+        } else {
+            $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+            if ($this->PaskahModel->setorPIC(user()->username)) {
+                $summary['total'] = $summary['total'] - $this->PaskahModel->setorPIC(user()->username)[0]['total'];
+            }
+        }
+        $page = 1;
+        $keyword = '';
+        if ($page == 1) {
+            $index = 0;
+        } else {
+            $index = ($page - 1) * $this->jumlahlist;
+        }
+        $jemaat = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['tabel'];
+        $last = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['lastpage'];
+        $pagination = $this->pagination($page, $last);
+        $data = [
+            'jemaat' => $jemaat,
+            'pagination' => $pagination,
+            'last' => $last,
+            'page' => $page,
+            'summary' => $summary
+        ];
+        echo view('paskah/tabel/panitia', $data);
+    }
+    public function report()
+    {
+        $filename = 'Data_Pendaftaran_' . date('dmy') . '.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; ");
+        $file = fopen('php://output', 'w');
+        $header = array("Nama", "No HP", "Anggota", "Transportasi", "Jumlah Dewasa", "Jumlah Anak", "Total Bayar", "Penerima", "Tanggal Update");
+        fputcsv($file, $header);
+        foreach ($this->PaskahModel->select('nama, hp, anggota, transportasi, dewasa, anak, bayar, pic, updated_at')->findAll() as $key => $line) {
+            fputcsv($file, $line);
+        }
+        fclose($file);
+        exit;
+    }
+
+    public function reportsetoran()
+    {
+        $filename = 'Data_Setoran_' . date('dmy') . '.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; ");
+        $file = fopen('php://output', 'w');
+        $header = array("Nama", "jumlah", "Status", "Tanggal");
+        fputcsv($file, $header);
+        foreach ($this->PaskahModel->reportsetoran() as $key => $line) {
+            fputcsv($file, $line);
+        }
+        fclose($file);
+        exit;
     }
 }
