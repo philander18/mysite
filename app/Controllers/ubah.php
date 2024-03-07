@@ -6,23 +6,20 @@ use Myth\Auth\Models\UserModel;
 
 class Ubah extends BaseController
 {
-    protected $UserModel;
-    protected $auth;
-    protected $config;
-    protected $session;
-    public function __construct()
-    {
-        $this->UserModel = new UserModel();
-    }
+    // protected $UserModel;
+    // public function __construct()
+    // {
+    //     $this->UserModel = new UserModel();
+    // }
     public function index()
     {
-        $users = $this->UserModel;
-        $user = $users->where('email', user()->email)->first();
-        $user->generateResetHash();
-        $users->save($user);
+        // $users = $this->UserModel;
+        // $user = $users->where('email', user()->email)->first();
+        // $user->generateResetHash();
+        // $users->save($user);
         $data = [
             'judul' => 'Change Password',
-            'token' => $user->reset_hash
+            // 'token' => $user->reset_hash
         ];
         return view('auth/ubah', $data);
     }
@@ -55,9 +52,6 @@ class Ubah extends BaseController
         $user->reset_expires    = null;
         $user->force_pass_reset = false;
         $users->save($user);
-        // if ($this->auth->check()) {
-        //     $this->auth->logout();
-        // }
         return redirect()->route('login')->with('message', 'Password sudah diupdate');
     }
 }

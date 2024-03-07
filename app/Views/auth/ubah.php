@@ -3,7 +3,7 @@
 <div class="container-fluid" style="height: 100vh;">
     <div class="container">
         <form autocomplete="off" action="<?= base_url('/ubah/done'); ?>" method="POST">
-            <input type="hidden" name="token" id="token" value="<?= $token; ?>">
+            <input type="hidden" name="token" id="token" value="<?= "token"; ?>">
             <input type="hidden" name="email" id="email" value="<?= user()->email; ?>">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6" style="height: 100vh;">
