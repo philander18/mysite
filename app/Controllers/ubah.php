@@ -24,34 +24,34 @@ class Ubah extends BaseController
         return view('auth/ubah', $data);
     }
 
-    public function done()
-    {
-        $users = $this->UserModel;
-        $users->logResetAttempt(
-            (string) $this->request->getPost('email'),
-            $this->request->getPost('token'),
-            $this->request->getIPAddress(),
-            (string) $this->request->getUserAgent()
-        );
-        $rules = [
-            'token'        => 'required',
-            'email'        => 'required|valid_email',
-            'password'     => 'required',
-            'pass_confirm' => 'required|matches[password]',
-        ];
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
+    // public function done()
+    // {
+    //     $users = $this->UserModel;
+    //     $users->logResetAttempt(
+    //         (string) $this->request->getPost('email'),
+    //         $this->request->getPost('token'),
+    //         $this->request->getIPAddress(),
+    //         (string) $this->request->getUserAgent()
+    //     );
+    //     $rules = [
+    //         'token'        => 'required',
+    //         'email'        => 'required|valid_email',
+    //         'password'     => 'required',
+    //         'pass_confirm' => 'required|matches[password]',
+    //     ];
+    //     if (!$this->validate($rules)) {
+    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    //     }
 
-        $user = $users->where('email', $this->request->getPost('email'))
-            ->where('reset_hash', $this->request->getPost('token'))
-            ->first();
-        $user->password         = $this->request->getPost('password');
-        $user->reset_hash       = null;
-        $user->reset_at         = date('Y-m-d H:i:s');
-        $user->reset_expires    = null;
-        $user->force_pass_reset = false;
-        $users->save($user);
-        return redirect()->route('login')->with('message', 'Password sudah diupdate');
-    }
+    //     $user = $users->where('email', $this->request->getPost('email'))
+    //         ->where('reset_hash', $this->request->getPost('token'))
+    //         ->first();
+    //     $user->password         = $this->request->getPost('password');
+    //     $user->reset_hash       = null;
+    //     $user->reset_at         = date('Y-m-d H:i:s');
+    //     $user->reset_expires    = null;
+    //     $user->force_pass_reset = false;
+    //     $users->save($user);
+    //     return redirect()->route('login')->with('message', 'Password sudah diupdate');
+    // }
 }
