@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-// use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\UserModel;
 
 class Berubah extends BaseController
 {
-    // protected $UserModel;
-    // public function __construct()
-    // {
-    //     $this->UserModel = new UserModel();
-    // }
+    protected $UserModel;
+    public function __construct()
+    {
+        $this->UserModel = new UserModel();
+    }
     public function index()
     {
         // $users = $this->UserModel;
