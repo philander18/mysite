@@ -11,7 +11,7 @@
                     <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/cekSetoran" role="button" style="width: 80%; height: 4rem; ">Cek Setoran</a>
                 <?php endif; ?>
                 <?php if (logged_in()) : ?>
-                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url('ubah'); ?>" role="button" style="width: 80%; height: 4rem; ">Ubah Password</a>
+                    <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>berubah" role="button" style="width: 80%; height: 4rem; ">Ubah Password</a>
                     <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url('logout'); ?>" role="button" style="width: 80%; height: 4rem; ">Keluar</a>
                 <?php endif; ?>
             </div>
