@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Myth\Auth\Models\UserModel;
+// use Myth\Auth\Models\UserModel;
 
 class Ubah extends BaseController
 {
