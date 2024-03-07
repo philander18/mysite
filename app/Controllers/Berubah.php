@@ -7,9 +7,15 @@ use Myth\Auth\Models\UserModel;
 class Berubah extends BaseController
 {
     protected $UserModel;
+    protected $auth;
+    protected $config;
+    protected $session;
     public function __construct()
     {
         $this->UserModel = new UserModel();
+        $this->session = service('session');
+        $this->config = config('Auth');
+        $this->auth   = service('authentication');
     }
     public function index()
     {
@@ -52,6 +58,9 @@ class Berubah extends BaseController
         $user->reset_expires    = null;
         $user->force_pass_reset = false;
         $users->save($user);
+        if ($this->auth->check()) {
+            $this->auth->logout();
+        }
         return redirect()->route('login')->with('message', 'Password sudah diupdate');
     }
 }
