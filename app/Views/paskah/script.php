@@ -109,6 +109,10 @@
             $('#id').val($(this).data('id'))
         });
 
+        $('.dihapus').on('click', function() {
+            $('#idhapus').val($(this).data('id'))
+        });
+
         $('.updatedata').on('click', function() {
             var id = $('#id').val(),
                 nama = $('#modalnama').val(),
@@ -169,6 +173,22 @@
                 dataType: 'html',
                 success: function(data) {
                     $('.tabelDataSetoran').html(data);
+                }
+            });
+        });
+
+        $('.hapus').on('click', function() {
+            var id = $('#idhapus').val(),
+                baseurl = $('#baseurl').val();
+            $.ajax({
+                url: method_url(baseurl, 'Paskah', 'deletejemaat'),
+                data: {
+                    id: id,
+                },
+                method: 'post',
+                dataType: 'html',
+                success: function(data) {
+                    $('.tabelDataPendaftaran').html(data);
                 }
             });
         });

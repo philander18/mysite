@@ -373,4 +373,36 @@ class Paskah extends BaseController
         fclose($file);
         exit;
     }
+
+    public function deletejemaat()
+    {
+        $this->PaskahModel->delete(['id' => $_POST['id']]);
+        if (empty($this->PaskahModel->statusSummary(user()->username))) {
+            $summary['pic'] = false;
+            $summary['total'] = false;
+        } else {
+            $summary = $this->PaskahModel->statusSummary(user()->username)[0];
+            if ($this->PaskahModel->setorPIC(user()->username)) {
+                $summary['total'] = $summary['total'] - $this->PaskahModel->setorPIC(user()->username)[0]['total'];
+            }
+        }
+        $page = 1;
+        $keyword = '';
+        if ($page == 1) {
+            $index = 0;
+        } else {
+            $index = ($page - 1) * $this->jumlahlist;
+        }
+        $jemaat = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['tabel'];
+        $last = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['lastpage'];
+        $pagination = $this->pagination($page, $last);
+        $data = [
+            'jemaat' => $jemaat,
+            'pagination' => $pagination,
+            'last' => $last,
+            'page' => $page,
+            'summary' => $summary
+        ];
+        echo view('paskah/tabel/panitia', $data);
+    }
 }

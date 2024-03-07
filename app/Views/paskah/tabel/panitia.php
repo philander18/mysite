@@ -16,14 +16,17 @@
     <tbody>
         <?php foreach ($jemaat as $row) : ?>
             <tr>
-                <td class="text-center align-middle m-1 p-1 text-dark" style="width: 70%;">
+                <td class="text-center align-middle m-1 p-1 text-dark" style="width: 65%;">
                     <a href="" class="link-primary modalpanitia" data-bs-toggle="modal" data-bs-target="#formpanitia" data-id="<?= $row["id"]; ?>" data-pic="<?= ($row["pic"] == user()->username) or is_null($row["pic"]); ?>" name="nama" id="nama">
                         <?= $row["nama"]; ?>
                     </a>
                 </td>
-                <td class="text-center align-middle m-1 p-1" style="width: 30%;">
+                <td class="text-center align-middle m-1 p-1" style="width: 35%;">
                     <?php if (is_null($row['bayar'])) : ?>
                         <i class="fas fa-circle-xmark" id="status"></i>
+                        <?php if (in_groups('bendahara')) : ?>
+                            <button type="button" id="status" class="btn btn-danger btn-sm dihapus text-dark ms-2 fw-bold" data-bs-toggle="modal" data-bs-target="#formhapus" data-id="<?= $row["id"]; ?>">Delete</button>
+                        <?php endif; ?>
                     <?php else : ?>
                         <?= number_format($row["bayar"], 0, ',', '.'); ?>
                     <?php endif; ?>
@@ -72,6 +75,9 @@
 
                 }
             });
+        });
+        $('.dihapus').on('click', function() {
+            $('#idhapus').val($(this).data('id'))
         });
     });
 </script>
