@@ -12,9 +12,6 @@ class Ubah extends BaseController
     protected $session;
     public function __construct()
     {
-        $this->session = service('session');
-        $this->config = config('Auth');
-        $this->auth   = service('authentication');
         $this->UserModel = new UserModel();
     }
     public function index()
@@ -32,7 +29,7 @@ class Ubah extends BaseController
 
     public function done()
     {
-        $users = $this->UserModel;;
+        $users = $this->UserModel;
         $users->logResetAttempt(
             (string) $this->request->getPost('email'),
             $this->request->getPost('token'),
@@ -58,9 +55,9 @@ class Ubah extends BaseController
         $user->reset_expires    = null;
         $user->force_pass_reset = false;
         $users->save($user);
-        if ($this->auth->check()) {
-            $this->auth->logout();
-        }
+        // if ($this->auth->check()) {
+        //     $this->auth->logout();
+        // }
         return redirect()->route('login')->with('message', 'Password sudah diupdate');
     }
 }
