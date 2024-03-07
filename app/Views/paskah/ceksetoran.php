@@ -7,7 +7,7 @@
                 <div class="container-fluid mt-4">
                     <div class="row">
                         <div class="col-4 mb-2">
-                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>paskah/reportsetoran" role="button" style="width: 80%">Report</a>
+                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetakSetor" role="button" style="width: 80%">Report</a>
                         </div>
                     </div>
                     <div class="row">

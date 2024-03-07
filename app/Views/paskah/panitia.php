@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6" style="height: 100vh;">
                 <div class="container-fluid mt-4">
-                    <?php if (in_groups('bendahara')) : ?>
+                    <?php if (in_groups('bendahara') or in_groups('ketua')) : ?>
                         <div class="row">
                             <div class="col-4 mb-2">
                                 <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetakpendaftaran" target="_blank" role="button" style="width: 80%">Report</a>

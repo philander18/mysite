@@ -92,6 +92,6 @@ class PaskahModel extends Model
 
     public function reportsetoran()
     {
-        return $this->db->table("bendahara")->select("pic, jumlah, if(status = 1, 'diterima', 'belum diterima') ,updated_at")->get()->getResultArray();
+        return $this->db->table("bendahara")->select("pic, jumlah, if(status = 1, 'diterima', 'belum diterima') as status, updated_at")->get()->getResultArray();
     }
 }
