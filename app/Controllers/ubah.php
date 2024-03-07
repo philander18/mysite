@@ -6,6 +6,7 @@ use Myth\Auth\Models\UserModel;
 
 class Ubah extends BaseController
 {
+    protected $UserModel;
     protected $auth;
     protected $config;
     protected $session;
@@ -14,10 +15,11 @@ class Ubah extends BaseController
         $this->session = service('session');
         $this->config = config('Auth');
         $this->auth   = service('authentication');
+        $this->UserModel = new UserModel();
     }
     public function index()
     {
-        $users = model(UserModel::class);
+        $users = $this->UserModel;
         $user = $users->where('email', user()->email)->first();
         $user->generateResetHash();
         $users->save($user);
@@ -30,7 +32,7 @@ class Ubah extends BaseController
 
     public function done()
     {
-        $users = model(UserModel::class);
+        $users = $this->UserModel;;
         $users->logResetAttempt(
             (string) $this->request->getPost('email'),
             $this->request->getPost('token'),
