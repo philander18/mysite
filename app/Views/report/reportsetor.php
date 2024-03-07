@@ -42,7 +42,7 @@
             <tr>
                 <td class="text-center text-wrap" style="width: 25%;"><?= $row["pic"]; ?></td>
                 <td class="text-center text-wrap" style="width: 25%;"><?= $row["jumlah"]; ?></td>
-                <td style="width: 25%;"><?= $row["status"]; ?></td>
+                <td class="text-center text-wrap" style="width: 25%;"><?= $row["status"]; ?></td>
                 <td class="text-center text-wrap" style="width: 25%;"><?= $row["updated_at"]; ?></td>
             </tr>
         <?php endforeach; ?>
