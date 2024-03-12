@@ -19,6 +19,7 @@ class PaskahModel extends Model
         array_splice($tabel, $jumlahlist);
         $data['lastpage'] = $lastpage;
         $data['tabel'] = $tabel;
+        $data['jumlah'] = $jumlahdata;
         return $data;
     }
     public function searchpanitia($keyword, $jumlahlist, $index)
@@ -31,6 +32,7 @@ class PaskahModel extends Model
         array_splice($tabel, $jumlahlist);
         $data['lastpage'] = $lastpage;
         $data['tabel'] = $tabel;
+        $data['jumlah'] = $jumlahdata;
         return $data;
     }
 
@@ -93,5 +95,14 @@ class PaskahModel extends Model
     public function reportsetoran()
     {
         return $this->db->table("bendahara")->select("pic, jumlah, if(status = 1, 'diterima', 'belum diterima') as status, updated_at")->get()->getResultArray();
+    }
+    public function data_report()
+    {
+        $data['dewasa'] = $this->db->table('jemaat')->select("sum(dewasa) as JDewasa")->get()->getResultArray()[0]['JDewasa'];
+        $data['dewasa_bayar'] = $this->db->table('jemaat')->select("sum(dewasa) as JDewasa")->where("bayar is not null")->get()->getResultArray()[0]['JDewasa'];
+        $data['anak'] = $this->db->table('jemaat')->select("sum(anak) as JAnak")->get()->getResultArray()[0]['JAnak'];
+        $data['bayar'] = $this->db->table('jemaat')->select("sum(bayar) as JBayar")->get()->getResultArray()[0]['JBayar'];
+        $data['anggota'] = $this->db->table('jemaat')->select('anggota')->where('id = 10')->get()->getResultArray()[0]['anggota'];
+        return $data;
     }
 }

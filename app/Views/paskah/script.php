@@ -193,53 +193,38 @@
             });
         });
 
-        $("input:radio").on('click', function() {
-            const equipment = $(this).data('equipment'),
-                status = $("[name=" + equipment + "]:checked").val();
-            // console.log(status);
-            if (status == 'Sesuai' || status == 'Tidak Ketemu') {
-                $('#submit' + equipment).prop('disabled', false);
-                $('#edit' + equipment).prop('disabled', true);
-            } else if (status == 'Tidak Sesuai') {
-                $('#submit' + equipment).prop('disabled', true);
-                $('#edit' + equipment).prop('disabled', false);
-            };
-        });
-
-        $("input:checkbox").on('change', function() {
-            var keyword = $('#keyword').val(),
-                page = 1,
-                belum = $(this).is(":checked");
+        $(".linkD").on('click', function() {
+            var page = $(this).data('page'),
+                baseurl = $('#baseurl').val(),
+                keyword = $('#keyword').val();
             $.ajax({
-                url: method_url('DataEquipment', 'search'),
+                url: method_url(baseurl, 'paskah', 'searchData'),
                 data: {
                     keyword: keyword,
                     page: page,
-                    belum: belum,
                 },
                 method: 'post',
                 dataType: 'html',
                 success: function(data) {
-                    $('.tabelDataEquipment').html(data);
+                    $('.tabelDataPendaftaran').html(data);
                 }
             });
         });
 
-        $(".page-link").on('click', function() {
+        $(".linkP").on('click', function() {
             var page = $(this).data('page'),
-                keyword = $('#keyword').val(),
-                belum = $("input:checkbox").is(":checked");
+                baseurl = $('#baseurl').val(),
+                keyword = $('#keywordpanitia').val();
             $.ajax({
-                url: method_url('DataEquipment', 'search'),
+                url: method_url(baseurl, 'paskah', 'searchDataPanitia'),
                 data: {
                     keyword: keyword,
                     page: page,
-                    belum: belum,
                 },
                 method: 'post',
                 dataType: 'html',
                 success: function(data) {
-                    $('.tabelDataEquipment').html(data);
+                    $('.tabelDataPendaftaran').html(data);
                 }
             });
         });

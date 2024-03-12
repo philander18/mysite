@@ -35,6 +35,7 @@ class Pdf extends BaseController
         $pdf->AddPage();
         $data = [
             'jemaat' => $this->PaskahModel->findAll(),
+            'total' => $this->PaskahModel->data_report(),
         ];
         //view mengarah ke reportpendaftaran.php
         $html = view('report/reportpendaftaran', $data);
@@ -67,6 +68,7 @@ class Pdf extends BaseController
         // Add a page
         // This method has several options, check the source code documentation for more information.
         $pdf->AddPage();
+
         $data = [
             'setoran' => $this->PaskahModel->reportsetoran(),
         ];

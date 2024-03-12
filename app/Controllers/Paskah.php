@@ -68,11 +68,13 @@ class Paskah extends BaseController
             }
         }
         $page = 1;
+        // d(preg_split("/\r\n|\n|\r/", $this->PaskahModel->data_report()['anggota']));
         $data = [
             'judul' => 'Panitia',
             'jemaat' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['tabel'],
             'pagination' => $this->pagination($page, $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage']),
             'last' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['lastpage'],
+            'jumlah' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['jumlah'],
             'page' => $page,
             'summary' => $summary,
         ];
@@ -87,6 +89,7 @@ class Paskah extends BaseController
             'jemaat' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['tabel'],
             'pagination' => $this->pagination($page, $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['lastpage']),
             'last' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['lastpage'],
+            'jumlah' => $this->PaskahModel->searchhp("", $this->jumlahlist, 0)['jumlah'],
             'page' => $page,
         ];
         return view('paskah/cekumum', $data);
@@ -120,11 +123,13 @@ class Paskah extends BaseController
         }
         $jemaat = $this->PaskahModel->searchhp($keyword, $this->jumlahlist, $index)['tabel'];
         $last = $this->PaskahModel->searchhp($keyword, $this->jumlahlist, $index)['lastpage'];
+        $jumlah = $this->PaskahModel->searchhp($keyword, $this->jumlahlist, $index)['jumlah'];
         $pagination = $this->pagination($page, $last);
         $data = [
             'jemaat' => $jemaat,
             'pagination' => $pagination,
             'last' => $last,
+            'jumlah' => $jumlah,
             'page' => $page,
         ];
         echo view('paskah/tabel/cekData', $data);
@@ -150,11 +155,13 @@ class Paskah extends BaseController
         }
         $jemaat = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['tabel'];
         $last = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['lastpage'];
+        $jumlah = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['jumlah'];
         $pagination = $this->pagination($page, $last);
         $data = [
             'jemaat' => $jemaat,
             'pagination' => $pagination,
             'last' => $last,
+            'jumlah' => $jumlah,
             'page' => $page,
             'summary' => $summary,
         ];
@@ -259,11 +266,13 @@ class Paskah extends BaseController
         }
         $jemaat = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['tabel'];
         $last = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['lastpage'];
+        $jumlah = $this->PaskahModel->searchpanitia($keyword, $this->jumlahlist, $index)['jumlah'];
         $pagination = $this->pagination($page, $last);
         $data = [
             'jemaat' => $jemaat,
             'pagination' => $pagination,
             'last' => $last,
+            'jumlah' => $jumlah,
             'page' => $page,
             'summary' => $summary
         ];
