@@ -68,7 +68,7 @@ class Paskah extends BaseController
             }
         }
         $page = 1;
-        // d(preg_split("/\r\n|\n|\r/", $this->PaskahModel->data_report()['anggota']));
+        d($this->PaskahModel->data_report());
         $data = [
             'judul' => 'Panitia',
             'jemaat' => $this->PaskahModel->searchpanitia("", $this->jumlahlist, 0)['tabel'],

@@ -32,7 +32,6 @@
                         <?php endif; ?>
                         <div class="form-group">
                             <input type="password" id="password" name="password" class="form-control  <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
-                            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             <div class="invalid-feedback">
                                 <?= session('errors.password') ?>
                             </div>

@@ -99,10 +99,25 @@ class PaskahModel extends Model
     public function data_report()
     {
         $data['dewasa'] = $this->db->table('jemaat')->select("sum(dewasa) as JDewasa")->get()->getResultArray()[0]['JDewasa'];
-        $data['dewasa_bayar'] = $this->db->table('jemaat')->select("sum(dewasa) as JDewasa")->where("bayar is not null")->get()->getResultArray()[0]['JDewasa'];
+        $data['dewasa_bayar'] = $this->db->table('jemaat')->select("sum(dewasa) as JDewasa")->where("bayar is not null and bayar <> 0")->get()->getResultArray()[0]['JDewasa'];
         $data['anak'] = $this->db->table('jemaat')->select("sum(anak) as JAnak")->get()->getResultArray()[0]['JAnak'];
         $data['bayar'] = $this->db->table('jemaat')->select("sum(bayar) as JBayar")->get()->getResultArray()[0]['JBayar'];
-        $data['anggota'] = $this->db->table('jemaat')->select('anggota')->where('id = 10')->get()->getResultArray()[0]['anggota'];
+        $data['transportasi_dewasa'] = $this->db->table('jemaat')->select("sum(dewasa) as panitia")->where("transportasi = 'panitia'")->get()->getResultArray()[0]['panitia'];
+        $data['transportasi_anak'] = $this->db->table('jemaat')->select("sum(anak) as panitia")->where("transportasi = 'panitia'")->get()->getResultArray()[0]['panitia'];
+        foreach ($this->db->table('jemaat')->select("anggota, transportasi")->get()->getResultArray() as $anggota) :
+            foreach (preg_split("/\r\n|\n|\r/", $anggota["anggota"]) as $list) : {
+                    if ($list <> "") {
+                        if (strpos($list, '(SM)')) {
+                            $SM[] = ['nama' => $list, 'transportasi' => $anggota['transportasi']];
+                        } else {
+                            $dewasa[] = ['nama' => $list, 'transportasi' => $anggota['transportasi']];
+                        }
+                    }
+                }
+            endforeach;
+        endforeach;
+        $data['SM'] = $SM;
+        $data['dewasa_transportasi'] = $dewasa;
         return $data;
     }
 }
