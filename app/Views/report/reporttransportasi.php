@@ -74,6 +74,7 @@
         </td>
     </tr>
 </table>
+<h3>-<br><br><br></h3>
 <table>
     <h3>Data Transportasi Pribadi</h3>
     <tr>
