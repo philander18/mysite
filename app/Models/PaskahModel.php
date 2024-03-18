@@ -104,7 +104,7 @@ class PaskahModel extends Model
         $data['bayar'] = $this->db->table('jemaat')->select("sum(bayar) as JBayar")->get()->getResultArray()[0]['JBayar'];
         $data['transportasi_dewasa'] = $this->db->table('jemaat')->select("sum(dewasa) as panitia")->where("transportasi = 'panitia'")->get()->getResultArray()[0]['panitia'];
         $data['transportasi_anak'] = $this->db->table('jemaat')->select("sum(anak) as panitia")->where("transportasi = 'panitia'")->get()->getResultArray()[0]['panitia'];
-        foreach ($this->db->table('jemaat')->select("anggota, transportasi")->get()->getResultArray() as $anggota) :
+        foreach ($this->db->table('jemaat')->select("anggota, transportasi")->orderBy('transportasi', 'ASC')->get()->getResultArray() as $anggota) :
             foreach (preg_split("/\r\n|\n|\r/", $anggota["anggota"]) as $list) : {
                     if ($list <> "") {
                         if (strpos($list, '(SM)')) {
