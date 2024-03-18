@@ -7,10 +7,10 @@
                 <div class="container-fluid mt-4">
                     <div class="row">
                         <div class="col-4 mb-2 d-inline">
-                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetakpendaftaran" target="_blank" role="button" style="width: 90%">Report</a>
+                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetakpendaftaran" target="_blank" role="button" style="width: 100%">Report</a>
                         </div>
                         <div class="col-4 mb-2 d-inline">
-                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetaktransportasi" target="_blank" role="button" style="width: 90%">Transport</a>
+                            <a class="btn btn-light text-dark fw-bold" href="<?= base_url(); ?>pdf/cetaktransportasi" target="_blank" role="button" style="width: 100%">Transport</a>
                         </div>
                     </div>
                     <div class="row">
