@@ -3,8 +3,8 @@
 <div class="container-fluid" style="height: 100vh;">
     <div class="container text-center">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6" style="height: 100vh;">
-                <a class="btn btn-danger fw-bold fs-2 mt-5 mb-4" href="<?= base_url(); ?>paskah/pendaftaran" role="button" style="width: 80%; height: 4rem; ">Pendaftaran</a>
+            <div class="col-12 col-md-8 col-lg-6 mt-5" style="height: 100vh;">
+                <!-- <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/pendaftaran" role="button" style="width: 80%; height: 4rem; ">Pendaftaran</a> -->
                 <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/cekData" role="button" style="width: 80%; height: 4rem; ">Cek Data</a>
                 <a class="btn btn-danger fw-bold fs-2 mb-4" href="<?= base_url(); ?>paskah/panitia" role="button" style="width: 80%; height: 4rem; ">Panitia</a>
                 <?php if (in_groups('bendahara') or in_groups('pendaftaran')) : ?>
