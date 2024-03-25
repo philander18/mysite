@@ -90,11 +90,11 @@
             <td style="text-align: right; font-weight: normal;">Rp <?= number_format($total["bayar"], 2, ',', '.'); ?></td>
         </tr>
         <tr>
-            <td style="font-weight: normal;">Subsidi Kas Gereja</td>
-            <td style="text-align: right; font-weight: normal;">Rp <?= number_format(5000000, 2, ',', '.'); ?></td>
+            <td style="font-weight: normal;">Donasi Konsumsi Anak</td>
+            <td style="text-align: right; font-weight: normal;">Rp <?= number_format(500000, 2, ',', '.'); ?></td>
         </tr>
         <tr>
-            <td style="font-weight: normal;">Donasi Konsumsi Anak</td>
+            <td style="font-weight: normal;">Donasi Ibu Sahale</td>
             <td style="text-align: right; font-weight: normal;">Rp <?= number_format(500000, 2, ',', '.'); ?></td>
         </tr>
         <tr>
@@ -103,11 +103,11 @@
         </tr>
         <tr>
             <td class="text-center"><strong>Rencana Pengeluaran</strong></td>
-            <td style="text-align: right;">Rp <?= number_format(14155000, 2, ',', '.'); ?></td>
+            <td style="text-align: right;">Rp <?= number_format(13240000, 2, ',', '.'); ?></td>
         </tr>
         <tr>
             <td class="text-center"><strong>Kekurangan Dana</strong></td>
-            <td style="text-align: right; color: red;">Rp <?= number_format((($total['bayar'] + 5000000 + 500000) - 14155000), 2, ',', '.'); ?></td>
+            <td style="text-align: right; color: red;">Rp <?= number_format((($total['bayar'] + 500000 + 500000) - 13240000), 2, ',', '.'); ?></td>
         </tr>
     </tbody>
 </table><br>

@@ -369,6 +369,22 @@ class Paskah extends BaseController
         exit;
     }
 
+    public function reportnama()
+    {
+        $filename = 'Data_Pendaftaran_' . date('dmy') . '.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; ");
+        $file = fopen('php://output', 'w');
+        $header = array("Nama", "No HP", "Anggota", "Transportasi", "Jumlah Dewasa", "Jumlah Anak", "Total Bayar", "Penerima", "Tanggal Update");
+        fputcsv($file, $header);
+        foreach ($this->PaskahModel->select('nama, hp, anggota, transportasi, dewasa, anak, bayar, pic, updated_at')->findAll() as $key => $line) {
+            fputcsv($file, $line);
+        }
+        fclose($file);
+        exit;
+    }
+
     public function reportsetoran()
     {
         $filename = 'Data_Setoran_' . date('dmy') . '.csv';
